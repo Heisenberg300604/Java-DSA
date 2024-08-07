@@ -16,7 +16,7 @@ public class BinarySearch {
             } else if (target < arr[mid]) {
                 end = mid-1;
             }else{
-                return mid;
+                return mid; // condition when arr[mid] = target element....
             }
         }
         return -1;
