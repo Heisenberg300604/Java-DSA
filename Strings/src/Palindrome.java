@@ -5,6 +5,9 @@ public class Palindrome {
         System.out.println(isPalindrome(check));
     }
     static boolean isPalindrome(String str){
+        if (str == null || str.length() == 0) {
+            return true;
+        }
         str = str.toLowerCase();
         for (int i = 0; i < str.length()/2; i++) {
             char start = str.charAt(i);
