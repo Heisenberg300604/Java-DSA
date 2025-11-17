@@ -1,31 +1,35 @@
 class Solution {
-    public void combination(int[] candidates, int target, int start,
-                            List<Integer> num, int total, List<List<Integer>> result) {
-
-        if (total == target) {
-            result.add(new ArrayList<>(num));
+    private void func(int ind, int sum, List<Integer> nums, 
+                      int[] candidates, List<List<Integer>> ans) {
+        if (sum == 0) {
+            ans.add(new ArrayList<>(nums));
             return;
         }
+        if (sum < 0 || ind == candidates.length) return; 
 
-        if (total > target) return;
+        nums.add(candidates[ind]);
 
-        for (int i = start; i < candidates.length; i++) {
+        // Recursively call with updated sum and next index
+        func(ind + 1, sum - candidates[ind], nums, candidates, ans);
 
-            if (i > start && candidates[i] == candidates[i - 1]) continue;
+        // Backtrack by removing the last added candidate
+        nums.remove(nums.size() - 1);
 
-            if (total + candidates[i] > target) break;
-
-            num.add(candidates[i]);
-            combination(candidates, target, i + 1, num, total + candidates[i], result);
-            num.remove(num.size() - 1);
+        // Skip duplicates
+        for(int i = ind + 1; i < candidates.length; i++) {
+            if(candidates[i] != candidates[ind]) {
+                func(i, sum, nums, candidates, ans);
+                break;
+            }
         }
     }
 
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> nums = new ArrayList<>();
+        // Sort candidates to handle duplicates
         Arrays.sort(candidates);
-        List<List<Integer>> result = new ArrayList<>();
-        combination(candidates, target, 0, new ArrayList<>(), 0, result);
-        return result;
+        func(0, target, nums, candidates, ans);
+        return ans;
     }
 }
-
