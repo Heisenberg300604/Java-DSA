@@ -4,13 +4,13 @@ class Solution {
         int n = nums.length;
         int[] range = new int[n];
         for( int i = 0; i<n; i++ ){
-            int sum = 0;
+            int count = 0;
             for(int j=0;j<n;j++){
                 if(nums[i]>nums[j]){
-                    sum++;
+                    count++;
                 }
             }
-            range[i] = sum;
+            range[i] = count;
         }
         return range;
     }
