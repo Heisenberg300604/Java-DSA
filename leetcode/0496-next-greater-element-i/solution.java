@@ -1,38 +1,21 @@
 class Solution {
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-        if (nums2.length == 0 || nums1.length == 0)
-      return new int[0];
-
-    Map<Integer, Integer> numberNGE = new HashMap<>();
-    Stack<Integer> numStack = new Stack<>();
-
-    numStack.push(nums2[nums2.length - 1]);
-    numberNGE.put(nums2[nums2.length - 1], -1);
-
-    for (int i = nums2.length - 2; i >= 0; i--) {
-
-      if (nums2[i] < numStack.peek()) {
-        numberNGE.put(nums2[i], numStack.peek());
-        numStack.push(nums2[i]);
-        continue;
-      }
-
-      while (!numStack.isEmpty() && numStack.peek() < nums2[i])
-        numStack.pop();
-
-      if (numStack.isEmpty()) {
-        numStack.push(nums2[i]);
-        numberNGE.put(nums2[i], -1);
-      } else {
-        numberNGE.put(nums2[i], numStack.peek());
-        numStack.push(nums2[i]);
-      }
-    }
-
-    for (int i = 0; i < nums1.length; i++)
-      nums1[i] = numberNGE.get(nums1[i]);
-
-    return nums1;
+        int ans[] = new int[nums1.length];
+        for(int i = 0 ; i < nums1.length;i++){
+            int element = nums1[i];
+            int nextGreater = -1;
+            for(int j = 0 ; j < nums2.length;j++){
+                if(nums2[j] == element){
+                    for(int k = j+1 ; k < nums2.length ; k++){
+                        if(nums2[k] > element){
+                            nextGreater = nums2[k];
+                            break;
+                        }
+                    }
+                }
+            }
+            ans[i] = nextGreater;
+        }
+        return ans;
     }
 }
-
