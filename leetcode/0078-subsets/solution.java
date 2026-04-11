@@ -1,24 +1,20 @@
 class Solution {
-    private void backtrack(int index, int n, int[] nums, List<Integer> current, List<List<Integer>> ans) {
-
-        if (index == n) {
-            ans.add(new ArrayList<>(current));
+    public void generateSubsets(List<List<Integer>> result ,List<Integer> temp , int index , int n ,int[] nums ){
+        if(index == n){
+            result.add(new ArrayList<>(temp));
             return;
         }
-
-        current.add(nums[index]);
-        backtrack(index + 1, n, nums, current, ans);
-
-        current.remove(current.size() - 1);
-
-        backtrack(index + 1, n, nums, current, ans);
-    
+        generateSubsets(result , temp , index +1 ,n , nums); // dont include
+        temp.add(nums[index]);
+        generateSubsets(result , temp , index +1 ,n , nums); // after include
+        temp.remove(temp.size() -1);  // We add an element, explore, then remove it to try other possibilities
     }
 
     public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> current = new ArrayList<>(); 
-        backtrack(0, nums.length, nums, current, ans); 
-        return ans;
+        int n = nums.length;
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+        generateSubsets(result , temp , 0 ,n ,nums );
+        return result;
     }
 }
