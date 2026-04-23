@@ -1,5 +1,18 @@
 class Solution {
     public int mySqrt(int x) {
-        return (int) Math.sqrt(x);
+        if (x < 2) return x;
+        int low = 1 ; 
+        int high = x;
+        int res = 0;
+        while(high>= low){
+            int mid = low + (high-low)/2;
+            if(mid <= x/mid ){
+                res = mid;
+                low = mid+1;
+            }else{
+                high = mid-1;
+            }
+        }
+        return res;
     }
 }
