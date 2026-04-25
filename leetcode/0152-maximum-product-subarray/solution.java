@@ -1,19 +1,16 @@
 class Solution {
-    public int maxProduct(int[] nums) {
-        int ans = Integer.MIN_VALUE;
-        int n = nums.length;
-        int prefix = 1;
-        int suffix = 1;
-        
-        for (int i = 0; i < n; i++) {
-            if (prefix == 0) prefix = 1;
-            if (suffix == 0) suffix = 1;
-            prefix *= nums[i];
-            suffix *= nums[n-i-1];
+    public int maxProduct(int[] nums) { // straightforward kadane's algorithm question
+        int maxSoFar = nums[0];
+        int minSoFar = nums[0];
+        int result = nums[0];
+        for(int i = 1 ; i < nums.length ;i++){
+            int temp = maxSoFar;
 
-            ans = Math.max(ans,Math.max(prefix,suffix));
+            maxSoFar = Math.max(nums[i] ,  Math.max(maxSoFar * nums[i], minSoFar * nums[i]) );
+            minSoFar = Math.min(nums[i] , Math.min(temp*nums[i] , minSoFar * nums[i]));
+
+            result = Math.max(result, maxSoFar);
         }
-
-        return ans;
+        return result;
     }
 }
