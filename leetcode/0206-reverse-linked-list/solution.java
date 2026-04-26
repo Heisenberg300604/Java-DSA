@@ -15,13 +15,15 @@ class Solution {
         }
         ListNode current = head;
         ListNode prev = null;
-        ListNode front = null;
+        ListNode next = null;
+        
         while(current != null){
-            front = current.next;
+            next = current.next;
             current.next = prev;
             prev = current;
-            current = front;
+            
+            current = next; 
         }
-        return prev;
+        return prev; // as prev would start from the reversed linkedlist node
     }
 }
