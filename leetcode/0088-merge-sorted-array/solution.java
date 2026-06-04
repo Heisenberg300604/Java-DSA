@@ -1,17 +1,22 @@
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int i = m-1;
-        int j = n-1;
-        int k = m+n -1;
-        while(j>=0){
-            if(i<0 || nums2[j]>=nums1[i]  ){
-                nums1[k] = nums2[j];
-                j--;      
-            }else{
-                nums1[k] = nums1[i];
+        int j = m+n-1; // nums1 array ke last mai rahega ye pointer 
+        int i = n-1; // nums2 array ke last mai rahega ye wala pointer
+        int k = m-1; // nums 1 array ke largest element pe rahega ye pointer
+        while(i >= 0 && k >= 0){
+            if(nums2[i] > nums1[k]){
+                nums1[j] = nums2[i];
                 i--;
+            }else{
+                nums1[j] = nums1[k];
+                k--;
             }
-            k--;
+            j--;
+        }
+        while(i >= 0){
+            nums1[j] = nums2[i];
+            i--;
+            j--;
         }
     }
 }
