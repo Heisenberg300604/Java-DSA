@@ -10,28 +10,13 @@
  */
 class Solution {
     public ListNode middleNode(ListNode head) {
-        if(head == null || head.next == null){
-            return head;
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        while(fast!=null && fast.next !=null){ // tortoise and hare
+            fast = fast.next.next; // 2 steps
+            slow = slow.next; // 1 step
         }
-        ListNode middle= null;
-        ListNode current = head;
-        int count = 0;
-        while(current != null){
-            count++;
-            current = current.next;
-        }
-        int mid = count/2;
-        int curr = 0;
-        current = head;
-        while(current != null){
-            if(curr == mid){
-                middle = current;
-                return middle;
-            }
-            curr++;
-            current = current.next;
-        }
-
-        return middle;
+        return slow;
     }
 }
