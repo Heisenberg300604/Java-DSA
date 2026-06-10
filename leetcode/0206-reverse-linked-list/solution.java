@@ -10,20 +10,18 @@
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
-        if(head == null || head.next == null){
-            return head;
-        }
         ListNode current = head;
         ListNode prev = null;
-        ListNode next = null;
-        
-        while(current != null){
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            
-            current = next; 
+        ListNode temp = null;
+
+        while(current !=null){
+            temp = current.next; // save next node
+            current.next = prev; //point link to previous ( aka reverse )
+            prev = current; // previous ko aage badhao 
+            current = temp; // move current forward
         }
-        return prev; // as prev would start from the reversed linkedlist node
+
+        return prev;
+
     }
 }
