@@ -13,15 +13,16 @@ public class Solution {
     public boolean hasCycle(ListNode head) {
         ListNode slow = head;
         ListNode fast = head;
-        // using floyd tortoise and hare algorithm 
-        // ek slow pointer ek fast pointer
-        while(fast !=null && fast.next !=null){
+
+        while(fast != null && fast.next !=null){
             slow = slow.next;
             fast = fast.next.next;
+
             if(slow == fast){
-                return true;
+                return true; // cycle detected
             }
         }
+
         return false;
     }
 }
