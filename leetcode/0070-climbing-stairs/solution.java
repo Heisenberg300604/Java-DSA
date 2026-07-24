@@ -1,20 +1,19 @@
 class Solution {
-    public int helper(int n , int [] dp){
-        if(n == 0) return 1;
-        if(n < 0) return 0;
+    // Tabulation approach
+    public int climbStairs(int n) {
+        if(n == 0 || n==1 || n== 2){
+            return n;
+        }
+        int[] ans = new int[n+1];
 
-        // after checking the base case we need to check our DP array
+        ans[0] = 0;
+        ans[1] = 1;
+        ans[2] = 2;
 
-        if(dp[n] != -1){
-            return dp[n];
+        for(int i = 3 ; i <= n;i++){
+            ans[i] = ans[i-1] +ans[i-2];
         }
 
-        return dp[n] = helper(n-1 , dp)+ helper(n-2 , dp); // 1 and 2 step 
-    }
-    public int climbStairs(int n) {
-        // we need to create a DP array
-        int[] dp = new int[n + 1];
-        Arrays.fill(dp, -1);
-        return helper(n, dp);
+        return ans[n];
     }
 }
