@@ -1,33 +1,16 @@
 class Solution {
-    public long solve(int index, boolean flag, int[] nums, long[][] dp) {
-        if (index == nums.length) {
-            return 0; // base case
-        }
-
-        int f = flag ? 1 : 0;
-
-        if (dp[index][f] != -1) {
-            return dp[index][f];
-        }
-
-        long skip = solve(index + 1, flag, nums,dp);
-
-        long val = nums[index];
-
-        if (flag != true) {
-            val = -val;
-        }
-
-        long take = solve(index + 1, !flag, nums,dp) + val;
-
-        return dp[index][flag ? 1:0] = Math.max(take, skip);
-    }
-
     public long maxAlternatingSum(int[] nums) {
-        long[][] dp = new long[nums.length + 1][2];
-        for (int i = 0; i < nums.length; i++) {
-            Arrays.fill(dp[i], -1);
+        int n = nums.length;
+        long [][] dp = new long[n+1][2]; // kept the dp array as long as it may exceed the value from long
+
+        for(int i = 1 ; i < n+1 ;i++){
+            // even subseq
+            dp[i][0] = Math.max(dp[i -1][1] -nums[i-1] , dp[i-1][0]);
+            // odd subseq
+            dp[i][1] = Math.max(dp[i -1][0] + nums[i-1] , dp[i-1][1]);
         }
-        return solve(0, true, nums,dp);
+
+        return Math.max(dp[n][0] , dp[n][1]);
+
     }
 }
